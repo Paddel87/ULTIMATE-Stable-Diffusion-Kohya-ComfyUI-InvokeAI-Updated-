@@ -18,10 +18,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install InvokeAI
-RUN git clone https://github.com/invoke-ai/InvokeAI.git && \
+RUN python -m pip install --upgrade pip && \
+    git clone https://github.com/invoke-ai/InvokeAI.git && \
     cd InvokeAI && \
     pip install --no-cache-dir -e . && \
-    invokeai-configure --yes
+    /root/.local/bin/invokeai-configure --yes
 
 # Install Automatic1111 Stable Diffusion WebUI
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
