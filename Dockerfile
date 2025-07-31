@@ -25,7 +25,8 @@ RUN python -m pip install --upgrade pip && \
     git clone --branch v6.2.0 https://github.com/invoke-ai/InvokeAI.git && \
     cd InvokeAI && \
     pip install --no-cache-dir torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu121 && \
-    pip install --no-cache-dir -e . && \
+    pip install --no-cache-dir . && \
+    ls -la /opt/venv/bin && \
     /opt/venv/bin/invokeai-configure --yes
 
 # Install Automatic1111 Stable Diffusion WebUI
