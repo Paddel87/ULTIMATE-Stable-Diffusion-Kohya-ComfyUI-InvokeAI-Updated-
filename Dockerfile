@@ -18,11 +18,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Create and activate virtual environment
 RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+SHELL ["/bin/bash", "-c", "source /opt/venv/bin/activate && exec \"$@\""]
 
 # Install InvokeAI v6.2.0
-RUN . /opt/venv/bin/activate && \
-    python -m pip install --upgrade pip && \
+RUN python -m pip install --upgrade pip && \
     git clone --branch v6.2.0 https://github.com/invoke-ai/InvokeAI.git && \
     cd InvokeAI && \
     pip install --no-cache-dir torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu121 && \
