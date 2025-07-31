@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN git clone https://github.com/invoke-ai/InvokeAI.git && \
     cd InvokeAI && \
     pip install -e . && \
-    invokeai-configure --yes
+    invokeai-configure --yes && \
+    rm -rf /root/.cache/pip
 
 # Install Automatic1111 Stable Diffusion WebUI
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
@@ -28,12 +29,14 @@ RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 # Install Kohya_ss
 RUN git clone https://github.com/bmaltais/kohya_ss.git && \
     cd kohya_ss && \
-    pip install -r requirements.txt
+    pip install -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
 # Install ComfyUI
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git && \
     cd ComfyUI && \
-    pip install -r requirements.txt
+    pip install -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
 # Create directories for FLUX models
 RUN mkdir -p $WORKSPACE/flux/models
