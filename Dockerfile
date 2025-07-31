@@ -4,8 +4,6 @@ FROM runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV WORKSPACE=/workspace
-ENV PATH="/root/.local/bin:${PATH}"
-
 # Create workspace directory
 RUN mkdir -p $WORKSPACE
 WORKDIR $WORKSPACE
@@ -15,14 +13,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     wget \
     unzip \
+    python3-venv \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Create and activate virtual environment
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 # Install InvokeAI
 RUN python -m pip install --upgrade pip && \
     git clone https://github.com/invoke-ai/InvokeAI.git && \
     cd InvokeAI && \
     pip install --no-cache-dir -e . && \
-    /root/.local/bin/invokeai-configure --yes
+    pip install --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
+    invokeai-configure --yes
 
 # Install Automatic1111 Stable Diffusion WebUI
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
