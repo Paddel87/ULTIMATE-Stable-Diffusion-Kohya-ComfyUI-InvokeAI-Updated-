@@ -40,11 +40,7 @@ RUN mkdir -p $WORKSPACE/flux/models
 RUN mkdir -p $WORKSPACE/flux/loras
 RUN mkdir -p $WORKSPACE/flux/highres
 
-# Download models
-RUN wget -P $WORKSPACE/stable-diffusion-webui/models/Stable-diffusion https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
-RUN wget -P $WORKSPACE/stable-diffusion-webui/models/Stable-diffusion https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
-RUN wget -P $WORKSPACE/stable-diffusion-webui/models/VAE https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors
-RUN wget -P $WORKSPACE/stable-diffusion-webui/models/insightface https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128.onnx
+
 
 # Install RunPod File Uploader
 RUN curl -sSL https://github.com/kodxana/RunPod-FilleUploader/raw/main/scripts/installer.sh -o installer.sh && chmod +x installer.sh && ./installer.sh
